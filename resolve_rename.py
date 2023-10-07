@@ -4,17 +4,21 @@ fu = bmd.scriptapp('Fusion')
 ui = fu.UIManager
 disp = bmd.UIDispatcher(ui)
 
+
 def this_pj():
     resolve = bmd.scriptapp('Resolve')
     pj_manager = resolve.GetProjectManager()
     current_pj = pj_manager.GetCurrentProject()
     return current_pj
 
+
 def this_timeline():
     return this_pj().GetCurrentTimeline()
 
+
 def get_all_track_clips(track_num=2, track_type='video'):
     return this_timeline().GetItemsInTrack(track_type, track_num)
+
 
 def get_all_track_names(timeline, track_type='video'):
     track_count = int(this_timeline().GetTrackCount(track_type))
@@ -22,6 +26,7 @@ def get_all_track_names(timeline, track_type='video'):
     for i in range(1, track_count + 1):
         track_names.append('[{}] {}'.format(i, this_timeline().GetTrackName(track_type, i)))
     return track_names
+
 
 def get_video_track_number_by_current_item():
     timeline = this_timeline()
@@ -146,13 +151,16 @@ itm['clip_colors'].AddItems(clipcolor_names)
 itm['track_names'].AddItems(get_all_track_names(this_timeline()))
 itm['rename_type'].AddItems(rename_types)
 
+
 def _exit(ev):
     disp.ExitLoop()
+
 
 def _run(ev):
     print('I run!')
     clip_list = _filter()
     rename(clip_list)
+
 
 def get_track_clip_list(clip_list, timeline, track_number, filter_color):
 
@@ -228,6 +236,7 @@ def rename_sequential(clip_list):
 
     return clip_list
 
+
 def do_one_regex(content, in_search, in_replace):
 
     try:
@@ -265,6 +274,7 @@ def do_one_regex(content, in_search, in_replace):
             result = None
     return result
 
+
 def rename_search(clip_list):
 
     in_search = str(itm['search'].Text)
@@ -290,6 +300,7 @@ def rename_search(clip_list):
 
     return clip_list
 
+
 def rename(clip_list):
 
     for one_clip in clip_list:
@@ -300,7 +311,8 @@ def rename(clip_list):
         #one_clip['item'].SetName(one_clip['new_name'])
         #one_clip['item'].SetClipProperty('Clip Name', one_clip['new_name'])
         #one_clip['item'].SetProperty('Clip Name', one_clip['new_name'])
-    
+
+
 def _filter(*ev):
 
     filter_color = bool(itm['rename_by_color'].Checked)
@@ -326,6 +338,7 @@ def _filter(*ev):
 
     return clip_list
 
+
 def _swap_search(ev):
 
     what_rename = itm['rename_type'].CurrentText
@@ -335,7 +348,6 @@ def _swap_search(ev):
     elif what_rename == 'Search and Replace':
         sequential_group.Hide()
         search_group.Show()
-
 
 
 dlg.On.MyWin.Close = _exit

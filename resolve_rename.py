@@ -268,7 +268,7 @@ class UI:
                                 self.selection_grp,
                                 self.ui_manager.Button(
                                     {
-                                        "ID": "Run",
+                                        "ID": "run",
                                         "Text": "Rename",
                                         "Weight": 0,
                                         "Enabled": True,
@@ -294,7 +294,7 @@ class UI:
         self.main_win = self.ui_dispatcher.AddWindow(
             {
                 "WindowTitle": "Batch Renamer",
-                "ID": "MyWin",
+                "ID": "main_win",
                 "Geometry": [
                     800,
                     500,
